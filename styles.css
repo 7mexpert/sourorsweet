@@ -573,7 +573,7 @@ footer {
 }
 
 .bottom-nav {
-    display: none !important;
+    display: none;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -759,4 +759,3 @@ footer {
         max-height: 70vh;
     }
 }
-
