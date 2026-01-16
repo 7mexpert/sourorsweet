@@ -98,6 +98,14 @@ document.addEventListener('DOMContentLoaded', function() {
         basketModal.style.display = 'block';
     });
 
+    const basketBtnMobile = document.getElementById('basket-btn-mobile');
+    if (basketBtnMobile) {
+        basketBtnMobile.addEventListener('click', function() {
+            displayBasket();
+            basketModal.style.display = 'block';
+        });
+    }
+
     basketCloseBtn.addEventListener('click', function() {
         basketModal.style.display = 'none';
     });
@@ -148,6 +156,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateBasketCount() {
         const totalItems = basket.reduce((sum, item) => sum + item.quantity, 0);
         basketCount.textContent = totalItems;
+        const basketCountMobile = document.getElementById('basket-count-mobile');
+        if (basketCountMobile) basketCountMobile.textContent = totalItems;
     }
 
     function displayBasket() {
