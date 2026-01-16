@@ -11,7 +11,7 @@
 <body>
     <header>
         <div class="container">
-            <h1 class="logo">Sour or Sweet</h1>
+            <img src="assets/logo.png" alt="Sour or Sweet Logo" class="logo">
             <nav>
                 <a href="#products">Products</a>
                 <a href="#make-your-own">Make Your Own</a>
@@ -255,15 +255,15 @@
     <section id="about" class="about">
         <div class="container">
             <h2>About Us</h2>
-            <p>At Sour or Sweet, we're passionate about creating the most delicious and exciting sweets. Our carefully crafted mixes are perfect for sharing with friends and family.</p>
+            <p>At Sour or Sweet, we're passionate about selling the most delicious and exciting sweets. Our carefully sourced mixes are perfect for sharing with friends and family.</p>
         </div>
     </section>
 
     <section id="contact" class="contact">
         <div class="container">
             <h2>Contact Us</h2>
-            <p>Email: info@sourorsweet.com</p>
-            <p>Phone: 01234 567890</p>
+            <p>Email: support@sourorsweet.com</p>
+            <a href="mailto:support@sourorsweet.com" class="contact-btn">Contact Us</a>
         </div>
     </section>
 
@@ -292,6 +292,17 @@
     <div id="loading">
         <div class="spinner"></div>
     </div>
+
+    <nav class="bottom-nav">
+        <a href="#products"><i class="fas fa-shopping-bag"></i><span>Shop</span></a>
+        <a href="#make-your-own"><i class="fas fa-magic"></i><span>Custom</span></a>
+        <button id="basket-btn-mobile" class="basket-btn-mobile">
+            <i class="fas fa-shopping-basket"></i>
+            <span id="basket-count-mobile">0</span>
+        </button>
+        <a href="#about"><i class="fas fa-info-circle"></i><span>About</span></a>
+        <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
+    </nav>
 
     <script src="script.js"></script>
 </body>
