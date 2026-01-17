@@ -61,8 +61,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedOption = productCard.querySelector('input[type="radio"]:checked');
             const size = selectedOption.value;
             const label = selectedOption.parentElement;
-            const priceText = label.textContent.split(' - ')[1];
-            const price = parseFloat(priceText.replace('£', ''));
+
+            // Get the discounted price from the discounted-price span
+            const discountedPriceSpan = label.querySelector('.discounted-price');
+            const price = parseFloat(discountedPriceSpan.textContent.replace('£', ''));
 
             addToBasket(productName, size, price);
             updateBasketCount();
@@ -193,6 +195,14 @@ document.addEventListener('DOMContentLoaded', function() {
         totalDiv.id = 'basket-total';
         totalDiv.textContent = `Total: £${total.toFixed(2)}`;
         basketItems.appendChild(totalDiv);
+
+        const deliveryNotice = document.createElement('div');
+        deliveryNotice.style.fontSize = '12px';
+        deliveryNotice.style.color = '#666';
+        deliveryNotice.style.textAlign = 'center';
+        deliveryNotice.style.marginTop = '5px';
+        deliveryNotice.textContent = 'excl. delivery fees';
+        basketItems.appendChild(deliveryNotice);
     }
 
     function removeFromBasket(index) {
