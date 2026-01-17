@@ -14,7 +14,17 @@ const STRIPE_PRICE_MAP = {
   "Non Fizzy Mix|800g": "price_1SqGqTPYgud7fn0GswtP9D2x",
 
   "Mixed Bags|400g": "price_1SqGq4PYgud7fn0GtKTCAacE",
-  "Mixed Bags|800g": "price_1SqGpnPYgud7fn0GThTDgHlh"
+  "Mixed Bags|800g": "price_1SqGpnPYgud7fn0GThTDgHlh",
+
+  "Lollipops 10pk|Cherry": "price_1SqZ6ZPYgud7fn0GR76L2AXH",
+  "Lollipops 10pk|Blue Cherry": "price_1SqZ76PYgud7fn0GnWyyg8b0",
+  "Lollipops 10pk|Red Cherry": "price_1SqZ7VPYgud7fn0Ga2WO8cXx",
+  "Lollipops 10pk|Green Cherry": "price_1SqZ9bPYgud7fn0GT0m5arbp",
+
+  "Lollipops 25pk|Sour Cola & Lemon": "price_1SqZA8PYgud7fn0GBcn5NZKJ",
+  "Lollipops 25pk|Watermelon": "price_1SqZAlPYgud7fn0GvKekrx6G",
+  "Lollipops 25pk|Strawberry": "price_1SqZB9PYgud7fn0Gck0r1WJX",
+  "Lollipops 25pk|Super Sour": "price_1SqZBcPYgud7fn0GCJD07KLT"
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -29,8 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const checkoutBtn = document.getElementById('checkout-btn');
     const addToBasketBtns = document.querySelectorAll('.add-to-basket');
     const productCards = document.querySelectorAll('.product-card');
-    const sweetInputs = document.querySelectorAll('input[type="number"][data-sweet]');
-    const pouchRadios = document.querySelectorAll('input[name="pouch-size"]');
 
     let basket = JSON.parse(localStorage.getItem('basket')) || [];
 
@@ -46,65 +54,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000); // 1 second delay for demo
     });
 
-    // Update selection status on pouch change
-    pouchRadios.forEach(radio => {
-        radio.addEventListener('change', updateSelectionStatus);
-    });
-
-    // Update selection status on input change
-    sweetInputs.forEach(input => {
-        input.addEventListener('input', updateSelectionStatus);
-    });
-
-    // Handle quantity buttons
-    document.addEventListener('click', function(event) {
-        if (event.target.classList.contains('qty-btn')) {
-            const button = event.target;
-            const sweet = button.dataset.sweet;
-            const input = document.querySelector(`input[data-sweet="${sweet}"]`);
-            let value = parseInt(input.value);
-
-            if (button.classList.contains('plus') && value < 10) {
-                value++;
-            } else if (button.classList.contains('minus') && value > 0) {
-                value--;
-            }
-
-            input.value = value;
-            updateSelectionStatus();
-        }
-    });
-
-    updateSelectionStatus();
-
     addToBasketBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             const productName = this.dataset.product;
-            let size, price;
-
-            if (productName === 'Custom Mix') {
-                const checkedBoxes = document.querySelectorAll('input[type="checkbox"][data-sweet]:checked');
-                const selectedPouch = document.querySelector('input[name="pouch-size"]:checked');
-                const requiredScoops = getScoopsForSize(selectedPouch.value);
-
-                const totalScoops = Array.from(sweetInputs).reduce((sum, input) => sum + parseInt(input.value || 0), 0);
-                if (totalScoops !== requiredScoops) {
-                    alert(`Please select exactly ${requiredScoops} scoops.`);
-                    return;
-                }
-
-                size = selectedPouch.value;
-                const label = selectedPouch.parentElement;
-                const priceText = label.textContent.split(' - ')[1];
-                price = parseFloat(priceText.replace('£', ''));
-            } else {
-                const productCard = this.closest('.product-card');
-                const selectedOption = productCard.querySelector('input[type="radio"]:checked');
-                size = selectedOption.value;
-                const label = selectedOption.parentElement;
-                const priceText = label.textContent.split(' - ')[1];
-                price = parseFloat(priceText.replace('£', ''));
-            }
+            const productCard = this.closest('.product-card');
+            const selectedOption = productCard.querySelector('input[type="radio"]:checked');
+            const size = selectedOption.value;
+            const label = selectedOption.parentElement;
+            const priceText = label.textContent.split(' - ')[1];
+            const price = parseFloat(priceText.replace('£', ''));
 
             addToBasket(productName, size, price);
             updateBasketCount();
@@ -249,34 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 150);
     }
 
-    function updateSelectionStatus() {
-        const totalScoops = Array.from(sweetInputs).reduce((sum, input) => sum + parseInt(input.value || 0), 0);
-        const selectedPouch = document.querySelector('input[name="pouch-size"]:checked');
-        const maxScoops = getScoopsForSize(selectedPouch.value);
-        const statusDiv = document.getElementById('selection-status');
-        statusDiv.textContent = `Selected: ${totalScoops} / ${maxScoops} scoops`;
 
-        const customBtn = document.querySelector('button[data-product="Custom Mix"]');
-        if (totalScoops !== maxScoops) {
-            customBtn.disabled = true;
-            customBtn.style.background = 'grey';
-            customBtn.style.cursor = 'not-allowed';
-        } else {
-            customBtn.disabled = false;
-            customBtn.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4)';
-            customBtn.style.cursor = 'pointer';
-        }
-    }
-
-    function getScoopsForSize(size) {
-        switch (size) {
-            case '400g': return 5;
-            case '1kg': return 10;
-            case '2kg': return 20;
-            case '2.75kg': return 27;
-            default: return 0;
-        }
-    }
 
     function displayProductDetails(title, description) {
         productDetails.innerHTML = `<h2>${title}</h2><div>${description}</div>`;
