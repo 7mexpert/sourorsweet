@@ -276,6 +276,19 @@ nav a:hover {
     background: linear-gradient(45deg, #4ecdc4, #ff6b6b);
 }
 
+.coming-soon-btn {
+    background: #cccccc !important;
+    color: #666 !important;
+    cursor: not-allowed !important;
+    opacity: 0.6;
+}
+
+.coming-soon-btn:hover {
+    background: #cccccc !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
 .make-your-own .add-to-basket {
     position: static;
     width: auto;
