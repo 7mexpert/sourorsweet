@@ -634,13 +634,13 @@ footer {
     width: 60px;
     height: 60px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s;
+    aspect-ratio: 1;
 }
 
 .basket-btn-mobile:hover {
