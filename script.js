@@ -1,3 +1,22 @@
+const STRIPE_PRICE_MAP = {
+  "Pink Mix|800g": "price_1SqSvRPYgud7fn0GaeDp2c7O",
+
+  "Vegan Mix|400g": "price_1SqSv9PYgud7fn0G64yfkQPw",
+  "Vegan Mix|800g": "price_1SqSuwPYgud7fn0GMThsWjDR",
+
+  "Gluten Free Sweets|400g": "price_1SqSujPYgud7fn0GxGj3Bn70",
+  "Gluten Free Sweets|800g": "price_1SqSuQPYgud7fn0Gqa1j3dNB",
+
+  "Fizzy Mix|400g": "price_1SqSu6PYgud7fn0GOkMKEkIu",
+  "Fizzy Mix|800g": "price_1SqStmPYgud7fn0Gi1xaAQxI",
+
+  "Non Fizzy Mix|400g": "price_1SqGqlPYgud7fn0GM2myUlnl",
+  "Non Fizzy Mix|800g": "price_1SqGqTPYgud7fn0GswtP9D2x",
+
+  "Mixed Bags|400g": "price_1SqGq4PYgud7fn0GtKTCAacE",
+  "Mixed Bags|800g": "price_1SqGpnPYgud7fn0GThTDgHlh"
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     const basketBtn = document.getElementById('basket-btn');
     const basketModal = document.getElementById('basket-modal');
@@ -133,15 +152,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    checkoutBtn.addEventListener('click', function() {
-        if (basket.length > 0) {
-            const productNames = basket.map(item => encodeURIComponent(item.product + ' ' + item.size)).join(',');
-            const url = `https://billing.sourorsweet.com/${productNames}`;
-            window.open(url, '_blank');
-        } else {
-            alert('Your basket is empty!');
-        }
+    checkoutBtn.addEventListener('click', async function () {
+    if (basket.length === 0) {
+        alert('Your basket is empty!');
+        return;
+    }
+
+    const lineItems = basket.map(item => {
+        const key = `${item.product}|${item.size}`;
+        const priceId = STRIPE_PRICE_MAP[key];
+        return {
+            price: priceId,
+            quantity: item.quantity
+        };
     });
+
+    try {
+        const res = await fetch("https://sourorsweet-checkout.7mexpert.workers.dev", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ items: lineItems })
+        });
+
+        const data = await res.json();
+        window.location.href = data.url;
+    } catch (err) {
+        console.error(err);
+        alert("Checkout failed. Please try again.");
+    }
+    });
+
+
 
     function addToBasket(product, size, price) {
         const existingItem = basket.find(item => item.product === product && item.size === size);
