@@ -1,25 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>404 – Page Not Found</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding: 4rem;
-    }
-    a {
-      color: #5865f2;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Sour or Sweet</title>
+    <link rel="icon" href="assets/favicon.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: white;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .error-number {
+            font-size: 8rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            height: 80px;
+            width: auto;
+        }
+
+        .error-message {
+            font-size: 1.8rem;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .home-btn {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+        }
+
+        .home-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .error-number {
+                font-size: 6rem;
+            }
+
+            .error-message {
+                font-size: 1.5rem;
+                padding: 0 20px;
+            }
+
+            .logo {
+                height: 60px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>404</h1>
-  <p>Sorry, that page doesn’t exist.</p>
-  <a href="/">Go back home</a>
+    <div class="logo-container">
+        <img src="assets/logo.png" alt="Sour or Sweet Logo" class="logo">
+    </div>
+
+    <div class="error-number">404</div>
+
+    <h1 class="error-message">This page doesn't exist.</h1>
+
+    <a href="https://www.sourorsweet.com" class="home-btn">Go Back Home</a>
 </body>
 </html>
