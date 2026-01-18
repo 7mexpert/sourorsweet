@@ -1,4 +1,5 @@
 console.log("script.js loaded");
+
 (function () {
   const params = new URLSearchParams(window.location.search);
   const ref = params.get("ref");
@@ -8,7 +9,8 @@ console.log("script.js loaded");
       `sour_ref=${encodeURIComponent(ref)}; ` +
       `path=/; ` +
       `max-age=${60 * 60 * 24 * 30}; ` +
-      `SameSite=Lax`;
+      `SameSite=Lax; ` +
+      `Secure`;
     console.log("Referral saved:", ref);
   }
 })();
@@ -259,4 +261,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 
