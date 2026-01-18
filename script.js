@@ -13,16 +13,17 @@ console.log("script.js loaded");
       `Secure`;
     console.log("Referral saved:", ref);
   }
-})();
 
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) {
-    return decodeURIComponent(parts.pop().split(";").shift());
-  }
-  return null;
-}
+  // Make getCookie available in console
+  window.getCookie = function(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return decodeURIComponent(parts.pop().split(";").shift());
+    }
+    return null;
+  };
+})();
 
 const STRIPE_PRICE_MAP = {
   "Pink Mix|800g": "price_1SqSvRPYgud7fn0GaeDp2c7O",
@@ -261,5 +262,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 
 
