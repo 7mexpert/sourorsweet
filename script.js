@@ -40,7 +40,7 @@ const STRIPE_PRICE_MAP = {
   "Non Fizzy Mix|400g": "price_1SqGqlPYgud7fn0GM2myUlnl",
   "Non Fizzy Mix|800g": "price_1SqGqTPYgud7fn0GswtP9D2x",
 
-  "Mixed Bags|400g": "price_1SqGq4PYgud7fn0GtKTCAacE",
+  "Mixed Bags|400g": "price_1SplMKPYgud7fn0GLc2jgbRQ",
   "Mixed Bags|800g": "price_1SqGpnPYgud7fn0GThTDgHlh",
 
   "Lollipops 10pk|Cherry": "price_1SqZ6ZPYgud7fn0GR76L2AXH",
@@ -265,6 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 
 
 
