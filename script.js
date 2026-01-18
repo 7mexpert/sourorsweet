@@ -139,40 +139,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const checkoutBtn = document.getElementById('checkout-btn');
+    if (!checkoutBtn) return; // stop if button not found
+
     checkoutBtn.addEventListener('click', async function () {
-    if (basket.length === 0) {
-        alert('Your basket is empty!');
-        return;
-    }
+        if (basket.length === 0) {
+            alert('Your basket is empty!');
+            return;
+        }
 
-    const lineItems = basket.map(item => {
-        const key = `${item.product}|${item.size}`;
-        const priceId = STRIPE_PRICE_MAP[key];
-        return {
-            price: priceId,
-            quantity: item.quantity
-        };
-    });
-
-    try {
-        const referralCode = getCookie("sour_ref"); // <-- added this
-
-        const res = await fetch("https://sourorsweet-checkout.7mexpert.workers.dev", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                items: lineItems,
-                referral: referralCode // <-- added this
-            })
+        const lineItems = basket.map(item => {
+            const key = `${item.product}|${item.size}`;
+            const priceId = STRIPE_PRICE_MAP[key];
+            return {
+                price: priceId,
+                quantity: item.quantity
+            };
         });
 
-        const data = await res.json();
-        window.location.href = data.url;
-    } catch (err) {
-        console.error(err);
-        alert("Checkout failed. Please try again.");
-    }
+        try {
+            const referralCode = window.getCookie ? window.getCookie("sour_ref") : null;
+
+            const res = await fetch("https://sourorsweet-checkout.7mexpert.workers.dev", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    items: lineItems,
+                    referral: referralCode
+                })
+            });
+
+            const data = await res.json();
+            window.location.href = data.url;
+        } catch (err) {
+            console.error(err);
+            alert("Checkout failed. Please try again.");
+        }
+    });
 });
+
 
     function addToBasket(product, size, price) {
         const existingItem = basket.find(item => item.product === product && item.size === size);
@@ -265,6 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 
 
 
