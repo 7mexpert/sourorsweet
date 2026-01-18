@@ -158,7 +158,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const res = await fetch("https://sourorsweet-checkout.7mexpert.workers.dev", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ items: lineItems })
+            body: JSON.stringify({
+              items: lineItems,
+              referral: referralCode
+            })
         });
 
         const data = await res.json();
@@ -262,6 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 
 
 
