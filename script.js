@@ -1,3 +1,26 @@
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get("ref");
+
+  if (ref) {
+    document.cookie =
+      `sour_ref=${encodeURIComponent(ref)}; ` +
+      `path=/; ` +
+      `max-age=${60 * 60 * 24 * 30}; ` +
+      `SameSite=Lax`;
+    console.log("Referral saved:", ref);
+  }
+})();
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+    return decodeURIComponent(parts.pop().split(";").shift());
+  }
+  return null;
+}
+
 const STRIPE_PRICE_MAP = {
   "Pink Mix|800g": "price_1SqSvRPYgud7fn0GaeDp2c7O",
 
