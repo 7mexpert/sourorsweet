@@ -155,12 +155,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     try {
+        const referralCode = getCookie("sour_ref"); // <-- added this
+
         const res = await fetch("https://sourorsweet-checkout.7mexpert.workers.dev", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              items: lineItems,
-              referral: referralCode
+                items: lineItems,
+                referral: referralCode // <-- added this
             })
         });
 
@@ -170,9 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error(err);
         alert("Checkout failed. Please try again.");
     }
-    });
-
-
+});
 
     function addToBasket(product, size, price) {
         const existingItem = basket.find(item => item.product === product && item.size === size);
@@ -265,6 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 
 
 
