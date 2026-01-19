@@ -47,7 +47,9 @@ const STRIPE_PRICE_MAP = {
   "Lollipops 25pk|Sour Cola & Lemon": "price_1SqZA8PYgud7fn0GBcn5NZKJ",
   "Lollipops 25pk|Watermelon": "price_1SqZAlPYgud7fn0GvKekrx6G",
   "Lollipops 25pk|Strawberry": "price_1SqZB9PYgud7fn0Gck0r1WJX",
-  "Lollipops 25pk|Super Sour": "price_1SqZBcPYgud7fn0GCJD07KLT"
+  "Lollipops 25pk|Super Sour": "price_1SqZBcPYgud7fn0GCJD07KLT",
+
+  "Chocolate Mix|750g": "price_1SrCUbPYgud7fn0GzdaMP30h"
 };
 
 document.addEventListener('DOMContentLoaded', function() {
