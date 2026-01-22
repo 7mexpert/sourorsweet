@@ -24,6 +24,8 @@ function getCookie(name) {
 const STRIPE_PRICE_MAP = {
   "Pink Mix|800g": "price_1SqSvRPYgud7fn0GaeDp2c7O",
 
+  "Love Mix|800g": "price_1SsQyGPYgud7fn0Gx80IV0pR",
+
   "Vegan Mix|400g": "price_1SqSv9PYgud7fn0G64yfkQPw",
   "Vegan Mix|800g": "price_1SqSuwPYgud7fn0GMThsWjDR",
 
