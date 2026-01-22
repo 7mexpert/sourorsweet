@@ -186,6 +186,20 @@ nav a:hover {
     z-index: 1;
 }
 
+.special-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(255, 105, 180, 0.3);
+}
+
 .discount-banner {
     background: #ff6b6b;
     color: white;
