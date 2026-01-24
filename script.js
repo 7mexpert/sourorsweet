@@ -54,18 +54,38 @@ const STRIPE_PRICE_MAP = {
   "Chocolate Mix|750g": "price_1SrCUbPYgud7fn0GzdaMP30h"
 };
 
+const adminIPs = ['86.148.221.133'];
+
+async function checkAdmin() {
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        console.log('Your IP:', data.ip);
+        if (adminIPs.includes(data.ip)) {
+            document.getElementById('admin-icon').style.display = 'flex';
+        } else {
+            console.log('IP not in admin list:', adminIPs);
+        }
+    } catch (error) {
+        console.error('Failed to fetch IP:', error);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const basketBtn = document.getElementById('basket-btn');
     const basketModal = document.getElementById('basket-modal');
     const productModal = document.getElementById('product-modal');
+    const adminModal = document.getElementById('admin-modal');
     const basketCloseBtn = document.querySelector('.close');
     const productCloseBtn = document.querySelector('.product-close');
+    const adminCloseBtn = document.querySelector('.admin-close');
     const basketItems = document.getElementById('basket-items');
     const productDetails = document.getElementById('product-details');
     const basketCount = document.getElementById('basket-count');
     const checkoutBtn = document.getElementById('checkout-btn');
     const addToBasketBtns = document.querySelectorAll('.add-to-basket');
     const productCards = document.querySelectorAll('.product-card');
+    const adminIcon = document.getElementById('admin-icon');
 
     let basket = JSON.parse(localStorage.getItem('basket')) || [];
 
@@ -244,8 +264,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 150);
     }
 
-
-
     function displayProductDetails(title, description) {
         productDetails.innerHTML = `<h2>${title}</h2><div>${description}</div>`;
     }
@@ -261,4 +279,104 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+
+    // Admin panel event listeners
+    adminIcon.addEventListener('click', function() {
+        adminModal.style.display = 'block';
+    });
+
+    adminCloseBtn.addEventListener('click', function() {
+        adminModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target === adminModal) {
+            adminModal.style.display = 'none';
+        }
+    });
+
+    document.getElementById('view-stats').addEventListener('click', function() {
+        const totalItems = basket.reduce((sum, item) => sum + item.quantity, 0);
+        const totalRevenue = basket.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        alert(`Basket Stats:\nTotal Items: ${totalItems}\nTotal Revenue: £${totalRevenue.toFixed(2)}`);
+    });
+
+    document.getElementById('view-page-info').addEventListener('click', function() {
+        const info = {
+            'User Agent': navigator.userAgent,
+            'Language': navigator.language,
+            'Platform': navigator.platform,
+            'Cookie Enabled': navigator.cookieEnabled,
+            'Online': navigator.onLine,
+            'Screen Size': `${screen.width}x${screen.height}`,
+            'Viewport': `${window.innerWidth}x${window.innerHeight}`,
+            'Page Load Time': performance.timing.loadEventEnd - performance.timing.navigationStart + 'ms'
+        };
+        let message = 'Page Info:\n';
+        for (const [key, value] of Object.entries(info)) {
+            message += `${key}: ${value}\n`;
+        }
+        alert(message);
+    });
+
+    document.getElementById('view-basket-data').addEventListener('click', function() {
+        const basketData = localStorage.getItem('basket');
+        if (basketData) {
+            alert(`Basket Data (JSON):\n${basketData}`);
+        } else {
+            alert('No basket data found.');
+        }
+    });
+
+    document.getElementById('clear-baskets').addEventListener('click', function() {
+        if (confirm('Are you sure you want to clear the basket?')) {
+            localStorage.removeItem('basket');
+            basket = [];
+            updateBasketCount();
+            alert('Basket cleared.');
+        }
+    });
+
+    document.getElementById('clear-all-data').addEventListener('click', function() {
+        if (confirm('Are you sure you want to clear ALL local data? This includes basket, referrals, etc.')) {
+            localStorage.clear();
+            sessionStorage.clear();
+            basket = [];
+            updateBasketCount();
+            alert('All local data cleared.');
+        }
+    });
+
+    document.getElementById('view-cookies').addEventListener('click', function() {
+        const cookies = document.cookie;
+        if (cookies) {
+            alert(`Cookies:\n${cookies}`);
+        } else {
+            alert('No cookies found.');
+        }
+    });
+
+    document.getElementById('export-data').addEventListener('click', function() {
+        const data = {
+            basket: localStorage.getItem('basket'),
+            cookies: document.cookie,
+            referrer: document.referrer,
+            timestamp: new Date().toISOString()
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'admin-export.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        alert('Data exported as admin-export.json');
+    });
+
+    document.getElementById('hide-admin-icon').addEventListener('click', function() {
+        document.getElementById('admin-icon').style.display = 'none';
+        alert('Admin icon hidden. Refresh the page to show it again.');
+    });
 });
+
+checkAdmin();
