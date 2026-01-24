@@ -27,7 +27,6 @@
             </nav>
         </div>
     </header>
-
     <section class="hero">
         <div class="container">
             <div class="discount-banner">£5 OFF Storewide!</div>
@@ -221,6 +220,37 @@
             <span class="close product-close">&times;</span>
             <div id="product-details"></div>
         </div>
+    </div>
+
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close admin-close">&times;</span>
+            <h2>Admin Dashboard</h2>
+            <div id="admin-content">
+                <div class="admin-section">
+                    <h3>Analytics</h3>
+                    <button id="view-stats" class="btn admin-btn">View Basket Stats</button>
+                    <button id="view-page-info" class="btn admin-btn">View Page Info</button>
+                </div>
+                <div class="admin-section">
+                    <h3>Data Management</h3>
+                    <button id="view-basket-data" class="btn admin-btn">View Basket Data</button>
+                    <button id="clear-baskets" class="btn admin-btn">Clear Basket</button>
+                    <button id="clear-all-data" class="btn admin-btn">Clear Local Data</button>
+                    <button id="view-cookies" class="btn admin-btn">View Cookies</button>
+                    <button id="export-data" class="btn admin-btn">Export Data</button>
+                </div>
+                <div class="admin-section">
+                    <h3>Tools</h3>
+                    <button id="hide-admin-icon" class="btn admin-btn">Hide Admin Icon</button>
+                    <button id="manage-products" class="btn admin-btn" disabled>Manage Products (Coming Soon)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-icon" style="display: none;">
+        <img src="assets/adminicon.png" alt="Admin">
     </div>
 
     <footer>
