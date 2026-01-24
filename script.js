@@ -54,7 +54,7 @@ const STRIPE_PRICE_MAP = {
   "Chocolate Mix|750g": "price_1SrCUbPYgud7fn0GzdaMP30h"
 };
 
-const adminIPs = ['86.148.221.133'];
+const adminIPs = ['86.148.221.133','31.94.56.26'];
 
 async function checkAdmin() {
     try {
@@ -380,3 +380,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 checkAdmin();
+
